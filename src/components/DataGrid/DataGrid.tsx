@@ -13,7 +13,7 @@ export const DataGrid: React.FC<DataGridProps> = ({ data }) => {
         <DataGridItem />
       </Grid>
       {data.map((el) => (
-        <Grid item xs={12}>
+        <Grid item xs={12} key={el.idx + el.ip}>
           <DataGridItem item={el} />
         </Grid>
       ))}

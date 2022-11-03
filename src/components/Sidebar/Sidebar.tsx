@@ -9,7 +9,7 @@ export const Sidebar: React.FC = () => {
   const { toggleThemeMode } = React.useContext(ThemeModeContext);
   return (
     <Grid container>
-      <Grid item xs={11}>
+      <Grid item xs>
         <Typography
           variant="h4"
           component="div"

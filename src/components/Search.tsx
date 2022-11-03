@@ -19,7 +19,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Grid item xs={12} md={3}>
+      <Grid item xs={10} md={6}>
         <TextField
           variant="outlined"
           value={value}

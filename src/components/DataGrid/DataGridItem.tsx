@@ -10,7 +10,7 @@ const meta = [
     size: 1,
   },
   {
-    name: "IP",
+    name: "IP:port",
     size: 3,
   },
   {
@@ -18,20 +18,24 @@ const meta = [
     size: 4,
   },
   {
-    name: "Port",
-    size: 2,
+    name: "Status",
+    size: 1,
   },
   {
     name: "DHT Resolve",
-    size: 1,
-  },
-  {
-    name: "ICMP ping",
-    size: 1,
+    size: 3,
   },
 ];
 export const DataGridItem: React.FC<DataGridItemProps> = ({ item }) => {
   const theme = useTheme();
+  const getSx = (isLast: boolean) => {
+    return {
+      borderRight: !isLast ? `2px solid ${theme.palette.primary.main}` : "none",
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
+      fontWeight: "bold",
+    };
+  };
+
   if (!item)
     return (
       <StyledContainer container>
@@ -39,56 +43,47 @@ export const DataGridItem: React.FC<DataGridItemProps> = ({ item }) => {
           <Grid
             item
             xs={el.size}
-            sx={
-              index !== meta.length - 1
-                ? {
-                    borderRight: `1.5px solid ${theme.palette.primary.main}`,
-                    borderBottom: `1.5px solid ${theme.palette.primary.main}`,
-                  }
-                : { borderBottom: `1.5px solid ${theme.palette.primary.main}` }
-            }
+            sx={getSx(index === meta.length - 1)}
+            key={index}
           >
             {el.name}
           </Grid>
         ))}
       </StyledContainer>
     );
-  const { ip, index, dhtResolve, key, port, icmpPing } = item;
+  const { ip, idx, key, port, is_online } = item;
   const StyledItem = styled(StyledContainer)`
     margin-top: 5px;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1.5px solid
-      ${dhtResolve === "OK"
+    border: 1px solid
+      ${is_online === "OK"
         ? theme.palette.success.main
         : theme.palette.warning.main};
   `;
   const gridSx = {
     borderRight: `1.5px solid ${
-      dhtResolve === "OK"
+      is_online === "OK"
         ? theme.palette.success.main
         : theme.palette.warning.main
     };`,
   };
   return (
     <StyledItem container>
-      <Grid item sx={gridSx} xs={1}>
-        {index}
+      <Grid item sx={gridSx} xs={2} md={1}>
+        {idx}
       </Grid>
-      <Grid item sx={gridSx} xs={3}>
-        {ip}
+      <Grid item sx={gridSx} xs={10} md={3}>
+        {ip}:{port}
       </Grid>
-      <Grid item sx={gridSx} xs={4}>
+      <Grid item sx={gridSx} xs={12} md={4}>
         {key}
       </Grid>
-      <Grid item sx={gridSx} xs={2}>
-        {port}
+      <Grid item sx={gridSx} xs={2} md={1}>
+        {is_online}
       </Grid>
-      <Grid item sx={gridSx} xs={1}>
-        {dhtResolve}
-      </Grid>
-      <Grid item xs={1}>
-        {icmpPing}
+      <Grid item xs={2} md={3}>
+        {is_online}
       </Grid>
     </StyledItem>
   );
