@@ -59,35 +59,36 @@ export const AdvancedGridItem: React.FC<AdvancedGridItemProps> = ({
     }
   };
 
+  const gridSx = {
+    "@media(minWidth: 900px)": {
+      borderRight: `1px solid ${theme.palette.primary.main}`,
+    },
+  };
   const StyledLink = styled("div")`
     cursor: pointer;
+    display: flex;
+    span {
+      max-width: 95%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     svg {
       margin-left: 5px;
+      width: 5%
       font-size: 0.9em;
       fill: ${theme.palette.secondary.main};
       vertical-align: middle;
       margin-bottom: 1px;
     }
-    // @media (max-width: 600px) {
-    //   white-space: nowrap;
-    //   overflow: hidden;
-    //   text-overflow: ellipsis;
-    //   width: 95%;
-    //   svg {
-    //     position: absolute;
-    //     right: 5px;
-    //     z-index: 5;
-    //     top: 23px;
-    //   }
-    // }
   `;
 
   return (
     <Grid item {...restProps}>
       {label && <Label>{label}</Label>}
       {isLink ? (
-        <StyledLink onClick={handleClick}>
-          {content}
+        <StyledLink>
+          <span onClick={handleClick}>{content}</span>
           <ContentCopyOutlinedIcon fontSize="small" />
         </StyledLink>
       ) : (
