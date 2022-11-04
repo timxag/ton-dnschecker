@@ -6,10 +6,11 @@ import {
   DARK_MODE_THEME,
   getAppTheme,
 } from "./tools/theme";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { styled } from "@mui/material";
 import { Sidebar } from "./components/Sidebar";
 import Main from "./components/Main";
+import { SnackbarProvider } from "notistack";
 
 const queryClient = new QueryClient();
 const App: React.FC = () => {
@@ -31,17 +32,19 @@ const App: React.FC = () => {
 
   return (
     <ThemeModeContext.Provider value={themeMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Wrapper>
-          <Sidebar />
-          <ContentWrapper>
-            <QueryClientProvider client={queryClient}>
-              <Main />
-            </QueryClientProvider>
-          </ContentWrapper>
-        </Wrapper>
-      </ThemeProvider>
+      <SnackbarProvider maxSnack={1} preventDuplicate autoHideDuration={1500}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Wrapper>
+            <Sidebar />
+            <ContentWrapper>
+              <QueryClientProvider client={queryClient}>
+                <Main />
+              </QueryClientProvider>
+            </ContentWrapper>
+          </Wrapper>
+        </ThemeProvider>
+      </SnackbarProvider>
     </ThemeModeContext.Provider>
   );
 };

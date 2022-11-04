@@ -35,9 +35,11 @@ const Main: React.FC = () => {
       )}
       {status === "success" && (
         <DataGrid
-          data={data}
-          resolved={resolved as unknown as ResolvedType[]}
-          isLoading={isLoading}
+          dhtData={{
+            data: data,
+            resolved: resolved as unknown as ResolvedType[],
+            isLoading: isLoading,
+          }}
         />
       )}
     </StyledContainer>

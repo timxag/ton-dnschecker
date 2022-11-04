@@ -19,7 +19,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Grid item xs={10} md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           variant="outlined"
           value={state}
@@ -30,7 +30,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={1} alignContent="end" textAlign="end">
+      <Grid item xs={12} md={1} alignContent="end" textAlign="end">
         <StyledButton
           onClick={() => onSearch(state)}
           startIcon={<SearchOutlinedIcon />}
