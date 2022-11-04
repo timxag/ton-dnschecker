@@ -2,5 +2,6 @@
   margin: 20px;
 }
 .SnackbarContent-root {
-  min-width: 120px !important;
+  min-width: unset !important;
+  max-width: 120px !important;
 }
