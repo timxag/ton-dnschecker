@@ -3,15 +3,15 @@ import React from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 export type SearchProps = {
+  value: string;
   onSearch: (value: string) => void;
 };
-const Search: React.FC<SearchProps> = ({ onSearch }) => {
-  const [value, setValue] = React.useState("");
+const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
+  const [state, setState] = React.useState(value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setState(event.target.value);
   };
-  //   const onClick = (event: React.)
   return (
     <StyledContainer
       container
@@ -22,19 +22,21 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
       <Grid item xs={10} md={6}>
         <TextField
           variant="outlined"
-          value={value}
+          value={state}
           onChange={handleChange}
-          label="Search"
+          label="ADNL address in hex form"
           color="secondary"
+          size="small"
           fullWidth
         />
       </Grid>
       <Grid item xs={1} alignContent="end" textAlign="end">
         <StyledButton
-          onClick={() => onSearch(value)}
+          onClick={() => onSearch(state)}
           startIcon={<SearchOutlinedIcon />}
+          disabled={!state}
         >
-          search
+          check
         </StyledButton>
       </Grid>
     </StyledContainer>
@@ -42,6 +44,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
 };
 const StyledContainer = styled(Grid)`
   text-align: center;
+  margin-bottom: 20px;
 `;
 const StyledButton = styled(Button)`
   margin: auto 0;

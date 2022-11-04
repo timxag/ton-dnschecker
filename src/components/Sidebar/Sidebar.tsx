@@ -11,13 +11,13 @@ export const Sidebar: React.FC = () => {
     <Grid container>
       <Grid item xs>
         <Typography
-          variant="h4"
+          variant="h5"
           component="div"
           sx={{ flexGrow: 1 }}
           fontWeight="bold"
         >
           <StyledIcon fill={theme.palette.primary.main} />
-          TON
+          TON DNS Checker
         </Typography>
       </Grid>
 
