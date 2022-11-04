@@ -1,14 +1,14 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import { DHTDataType, DHTResolvedType } from "../../tools/types";
-import { DHTDataGridItem } from "./DHTDataGridItem";
+import { LSDataType, LSResolvedType } from "../../tools/types";
+import { LSDataGridItem } from "./LSDataGridItem";
 
-export type DHTDataGridProps = {
-  data: DHTDataType[];
-  resolved: DHTResolvedType[];
+export type LSDataGridProps = {
+  data: LSDataType[];
+  resolved: LSResolvedType[];
   isLoading: boolean;
 };
-export const DHTDataGrid: React.FC<DHTDataGridProps> = ({
+export const LSDataGrid: React.FC<LSDataGridProps> = ({
   data,
   resolved,
   isLoading,
@@ -17,7 +17,7 @@ export const DHTDataGrid: React.FC<DHTDataGridProps> = ({
     <Grid container>
       {data.map((el, index) => (
         <Grid item xs={12} key={el.idx + el.ip}>
-          <DHTDataGridItem
+          <LSDataGridItem
             item={el}
             resolved={resolved ? resolved[index] : null}
             isLoading={isLoading}

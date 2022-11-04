@@ -2,14 +2,14 @@ import { CircularProgress, Grid, styled, useTheme } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import { DHTDataType, DHTResolvedType } from "../../tools/types";
+import { LSDataType, LSResolvedType } from "../../tools/types";
 import { AdvancedGridItem } from "./AdvancedGridItem";
-export type DHTDataGridItemProps = {
-  item: DHTDataType;
-  resolved: DHTResolvedType | null;
+export type LSataGridItemProps = {
+  item: LSDataType;
+  resolved: LSResolvedType | null;
   isLoading: boolean;
 };
-export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
+export const LSDataGridItem: React.FC<LSataGridItemProps> = ({
   item,
   resolved,
   isLoading,
@@ -24,8 +24,7 @@ export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
     text-align: start;
     border-bottom: 1px solid ${theme.palette.primary.main};
   `;
-  const getResolved = (ip: string | null, port: number | null) =>
-    ip && port ? `${ip}:${port}` : "-";
+  const getResolved = (adnl: string | null) => (adnl ? `${adnl}` : "-");
   return (
     <StyledItem container>
       <Grid item xs={12} md={8}>
@@ -55,19 +54,19 @@ export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
       <AdvancedGridItem
         xs={12}
         md={4}
-        label="Resolve DHT"
+        label="ADNL"
         textAlign={"center"}
         margin="auto"
         content={
           isLoading ? (
             <CircularProgress color="secondary" size="1em" />
           ) : resolved ? (
-            getResolved(resolved.ip, resolved.port)
+            getResolved(resolved.adnl)
           ) : (
             "-"
           )
         }
-        isLink={!!resolved && !!resolved.ip && !!resolved.port}
+        isLink={!!resolved && !!resolved.adnl}
       />
     </StyledItem>
   );

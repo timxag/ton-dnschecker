@@ -24,7 +24,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
           variant="outlined"
           value={state}
           onChange={handleChange}
-          label="ADNL address in hex form"
+          label="Domain or ADNL address in hex form"
           color="secondary"
           size="small"
           fullWidth
