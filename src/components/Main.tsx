@@ -45,27 +45,40 @@ const Main: React.FC = () => {
       return axios.get(`${API_URL}/api/dns/ls_resolve?domain=${value}`);
     }
   );
-  const handleClick = (value: string) => {
-    isADNL(value)
-      ? mutateDHT(value, {
-          onSuccess: (newData) => setResolvedDHT(newData.data),
-        })
-      : mutateLS(value, {
-          onSuccess: (newData) => setResolvedLS(newData.data),
-        });
-    setSearch(value);
-  };
+  const handleClick = React.useCallback(
+    (value: string) => {
+      window.history.replaceState({}, "", `?search=${value}`);
+      isADNL(value)
+        ? mutateDHT(value, {
+            onSuccess: (newData) => setResolvedDHT(newData.data),
+          })
+        : mutateLS(value, {
+            onSuccess: (newData) => setResolvedLS(newData.data),
+          });
+      setSearch(value);
+    },
+    [mutateDHT, mutateLS]
+  );
+
+  React.useEffect(() => {
+    const params = new URLSearchParams(
+      new URL(window.location.href).searchParams
+    );
+    if (typeof params.get("search") == "string") {
+      setSearch(params.get("search") ?? "");
+      handleClick(params.get("search") ?? "");
+    }
+  }, [handleClick]);
   return (
     <StyledContainer container>
       <Search onSearch={handleClick} value={search} />
       {dhtStatus === "error" ||
         (lsStatus === "error" && <p>Error fetching data</p>)}
-      {dhtStatus === "loading" ||
-        (lsStatus === "loading" && (
-          <Box sx={{ margin: "30px auto 0" }}>
-            <CircularProgress color="secondary" />
-          </Box>
-        ))}
+      {(dhtStatus === "loading" || lsStatus === "loading") && (
+        <Box sx={{ margin: "30px auto 0" }}>
+          <CircularProgress color="secondary" />
+        </Box>
+      )}
       {dhtStatus === "success" && lsStatus === "success" && (
         <DataGrid
           dhtData={{

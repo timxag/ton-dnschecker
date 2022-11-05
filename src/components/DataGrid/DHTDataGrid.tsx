@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import React from "react";
 import { DHTDataType, DHTResolvedType } from "../../tools/types";
 import { DHTDataGridItem } from "./DHTDataGridItem";
@@ -13,10 +13,16 @@ export const DHTDataGrid: React.FC<DHTDataGridProps> = ({
   resolved,
   isLoading,
 }) => {
+  const theme = useTheme();
+  const gridSx = {
+    "&:not(:last-of-type)": {
+      borderBottom: `1px solid ${theme.palette.primary.main}`,
+    },
+  };
   return (
     <Grid container>
       {data.map((el, index) => (
-        <Grid item xs={12} key={el.idx + el.ip}>
+        <Grid item xs={12} key={el.idx + el.ip} sx={gridSx}>
           <DHTDataGridItem
             item={el}
             resolved={resolved ? resolved[index] : null}

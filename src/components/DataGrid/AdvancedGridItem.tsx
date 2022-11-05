@@ -58,12 +58,6 @@ export const AdvancedGridItem: React.FC<AdvancedGridItemProps> = ({
       });
     }
   };
-
-  const gridSx = {
-    "@media(minWidth: 900px)": {
-      borderRight: `1px solid ${theme.palette.primary.main}`,
-    },
-  };
   const StyledLink = styled("div")`
     cursor: pointer;
     display: flex;

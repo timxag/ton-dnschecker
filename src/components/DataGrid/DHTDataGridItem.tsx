@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, styled, useTheme } from "@mui/material";
+import { CircularProgress, Grid, styled } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
@@ -14,15 +14,12 @@ export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
   resolved,
   isLoading,
 }) => {
-  const theme = useTheme();
-
   const { ip, idx, key, port, is_online } = item;
   const StyledItem = styled(StyledContainer)`
     margin-top: 5px;
     box-sizing: border-box;
     padding-bottom: 10px;
     text-align: start;
-    border-bottom: 1px solid ${theme.palette.primary.main};
   `;
   const getResolved = (ip: string | null, port: number | null) =>
     ip && port ? `${ip}:${port}` : "-";
