@@ -13,33 +13,35 @@ const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
     setState(event.target.value);
   };
   return (
-    <StyledContainer
-      container
-      textAlign="center"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Grid item xs={12} md={6}>
-        <TextField
-          variant="outlined"
-          value={state}
-          onChange={handleChange}
-          label="Domain or ADNL address in hex form"
-          color="secondary"
-          size="small"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={12} md={1} alignContent="end" textAlign="end">
-        <StyledButton
-          onClick={() => onSearch(state)}
-          startIcon={<SearchOutlinedIcon />}
-          disabled={!state}
-        >
-          check
-        </StyledButton>
-      </Grid>
-    </StyledContainer>
+    <StyledForm onSubmit={() => onSearch(state)}>
+      <StyledContainer
+        container
+        textAlign="center"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item xs={12} md={6}>
+          <TextField
+            variant="outlined"
+            value={state}
+            onChange={handleChange}
+            label="Domain or ADNL address in hex form"
+            color="secondary"
+            size="small"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={1} alignContent="end" textAlign="end">
+          <StyledButton
+            startIcon={<SearchOutlinedIcon />}
+            disabled={!state}
+            type="submit"
+          >
+            check
+          </StyledButton>
+        </Grid>
+      </StyledContainer>
+    </StyledForm>
   );
 };
 const StyledContainer = styled(Grid)`
@@ -49,5 +51,8 @@ const StyledContainer = styled(Grid)`
 const StyledButton = styled(Button)`
   margin: auto 0;
   height: 100%;
+`;
+const StyledForm = styled("form")`
+  width: 100%;
 `;
 export default Search;
