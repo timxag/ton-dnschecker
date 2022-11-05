@@ -14,15 +14,12 @@ export const LSDataGridItem: React.FC<LSataGridItemProps> = ({
   resolved,
   isLoading,
 }) => {
-  const theme = useTheme();
-
   const { ip, idx, key, port, is_online } = item;
   const StyledItem = styled(StyledContainer)`
     margin-top: 5px;
     box-sizing: border-box;
     padding-bottom: 10px;
     text-align: start;
-    border-bottom: 1px solid ${theme.palette.primary.main};
   `;
   const getResolved = (adnl: string | null) => (adnl ? `${adnl}` : "-");
   return (
