@@ -1,4 +1,4 @@
-const unsafeCopy = (textToCopy) => {
+const unsafeCopy = (textToCopy: string) => {
   let textArea = document.createElement("textarea");
   textArea.value = textToCopy;
   textArea.style.position = "fixed";
@@ -7,12 +7,20 @@ const unsafeCopy = (textToCopy) => {
   document.body.appendChild(textArea);
   textArea.focus();
   textArea.select();
-  return new Promise((res, rej) => {
+  return new Promise<void>((res, rej) => {
     document.execCommand("copy") ? res() : rej();
     textArea.remove();
   });
 };
-export const copyToClipboard = (textToCopy, tooltip) => {
+export const copyToClipboard = (
+  textToCopy: string,
+  tooltip: {
+    snackbar: any;
+    transitionComponent?: React.JSXElementConstructor<{
+      children: React.ReactElement<any, any>;
+    }>;
+  }
+) => {
   const { snackbar, transitionComponent } = tooltip;
   if (window.isSecureContext && navigator.clipboard)
     navigator.clipboard

@@ -4,7 +4,7 @@ export const fetchDHTData = async () => {
   const data = await response.json();
   return data;
 };
-export const fetchDHTResolved = async (value) => {
+export const fetchDHTResolved = async (value: string) => {
   const response = await fetch(`${API_URL}/api/dns/resolve?adnl=${value}`);
   const data = await response.json();
   return data;
@@ -14,7 +14,7 @@ export const fetchLSData = async () => {
   const data = await response.json();
   return data;
 };
-export const fetchLSResolved = async (value) => {
+export const fetchLSResolved = async (value: string) => {
   const response = await fetch(`${API_URL}/api/dns/ls_resolve?domain=${value}`);
   const data = await response.json();
   return data;
