@@ -71,6 +71,6 @@ export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
 };
 
 const StyledContainer = styled(Grid)`
-  margin: 20px auto 0;
   padding: 5px;
+  margin: 20px auto 0;
 `;
