@@ -12,6 +12,7 @@ Runs the app in the development mode.\
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+Production build(node js on your machine required): 
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
