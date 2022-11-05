@@ -15,4 +15,4 @@ You will also see any lint errors in the console.
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
-Then you can host *build folder* on your own web server.
+Then you can host `build` folder on your own web server.
