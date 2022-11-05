@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Grid, styled } from "@mui/material";
-import axios from "axios";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { api } from "../tools";
@@ -35,24 +34,21 @@ const Main: React.FC = () => {
     }
   );
   const { mutate: mutateDHT, isLoading: isLoadingDHT } = useMutation(
-    (value: string) => {
-      return axios.get(`${api.API_URL}/api/dns/resolve?adnl=${value}`);
-    }
+    api.fetchDHTResolved
   );
   const { mutate: mutateLS, isLoading: isLoadingLS } = useMutation(
-    (value: string) => {
-      return axios.get(`${api.API_URL}/api/dns/ls_resolve?domain=${value}`);
-    }
+    api.fetchLSResolved
   );
+
   const handleClick = React.useCallback(
     (value: string) => {
       window.history.replaceState({}, "", `?search=${value}`);
       isADNL(value)
         ? mutateDHT(value, {
-            onSuccess: (newData) => setResolvedDHT(newData.data),
+            onSuccess: (newData) => setResolvedDHT(newData),
           })
         : mutateLS(value, {
-            onSuccess: (newData) => setResolvedLS(newData.data),
+            onSuccess: (newData) => setResolvedLS(newData),
           });
       setSearch(value);
     },
@@ -68,6 +64,7 @@ const Main: React.FC = () => {
       handleClick(params.get("search") ?? "");
     }
   }, [handleClick]);
+
   return (
     <StyledContainer container>
       <Search onSearch={handleClick} value={search} />

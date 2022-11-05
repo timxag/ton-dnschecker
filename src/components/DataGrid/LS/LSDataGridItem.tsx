@@ -2,8 +2,8 @@ import { CircularProgress, Grid, styled } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import { types } from "../../tools";
-import { AdvancedGridItem } from "./AdvancedGridItem";
+import { types } from "../../../tools";
+import { AdvancedGridItem } from "../AdvancedGridItem";
 
 export const LSDataGridItem: React.FC<types.LSataGridItemProps> = ({
   item,
@@ -11,12 +11,6 @@ export const LSDataGridItem: React.FC<types.LSataGridItemProps> = ({
   isLoading,
 }) => {
   const { ip, idx, key, port, is_online } = item;
-  const StyledItem = styled(StyledContainer)`
-    margin-top: 5px;
-    box-sizing: border-box;
-    padding-bottom: 10px;
-    text-align: start;
-  `;
   const getResolved = (adnl: string | null) => (adnl ? `${adnl}` : "-");
   return (
     <StyledItem container>
@@ -59,7 +53,7 @@ export const LSDataGridItem: React.FC<types.LSataGridItemProps> = ({
             "-"
           )
         }
-        isLink={!!resolved && !!resolved.adnl}
+        isLink={!!resolved && !!resolved.adnl && !isLoading}
       />
     </StyledItem>
   );
@@ -68,4 +62,10 @@ export const LSDataGridItem: React.FC<types.LSataGridItemProps> = ({
 const StyledContainer = styled(Grid)`
   margin: 20px auto 0;
   padding: 5px;
+`;
+const StyledItem = styled(StyledContainer)`
+  margin-top: 5px;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  text-align: start;
 `;

@@ -1,6 +1,6 @@
 import { Grid, useTheme } from "@mui/material";
 import React from "react";
-import { types } from "../../tools";
+import { types } from "../../../tools";
 import { DHTDataGridItem } from "./DHTDataGridItem";
 
 export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({

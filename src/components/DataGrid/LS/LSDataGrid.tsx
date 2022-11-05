@@ -1,6 +1,6 @@
 import { Grid, useTheme } from "@mui/material";
 import React from "react";
-import { types } from "../../tools";
+import { types } from "../../../tools";
 import { LSDataGridItem } from "./LSDataGridItem";
 
 export const LSDataGrid: React.FC<types.LSDataGridProps> = ({

@@ -1,9 +1,8 @@
 import { Grid, styled, useTheme, Fade } from "@mui/material";
 import React from "react";
 import { useSnackbar } from "notistack";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import { copy } from "../../tools";
-import { types } from "../../tools";
+import { ContentCopyOutlined } from "@mui/icons-material";
+import { copy, types } from "../../tools";
 
 export const AdvancedGridItem: React.FC<types.AdvancedGridItemProps> = ({
   label,
@@ -20,22 +19,9 @@ export const AdvancedGridItem: React.FC<types.AdvancedGridItemProps> = ({
       transitionComponent: Fade,
     });
   };
-  const StyledLink = styled("div")`
-    cursor: pointer;
-    display: flex;
-    span {
-      max-width: 95%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  const StyledLink = styled(StyledDiv)`
     svg {
-      margin-left: 5px;
-      width: 5%
-      font-size: 0.9em;
       fill: ${theme.palette.secondary.main};
-      vertical-align: middle;
-      margin-bottom: 1px;
     }
   `;
 
@@ -45,7 +31,7 @@ export const AdvancedGridItem: React.FC<types.AdvancedGridItemProps> = ({
       {isLink ? (
         <StyledLink onClick={handleClick}>
           <span>{content}</span>
-          <ContentCopyOutlinedIcon fontSize="small" />
+          <ContentCopyOutlined fontSize="small" />
         </StyledLink>
       ) : (
         content
@@ -58,4 +44,21 @@ const Label = styled("p")`
   margin: 0;
   font-weight: bold;
   font-size: 0.9em;
+`;
+const StyledDiv = styled("div")`
+cursor: pointer;
+display: flex;
+span {
+  max-width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+svg {
+  margin-left: 5px;
+  width: 5%
+  font-size: 0.9em;
+  vertical-align: middle;
+  margin-bottom: 1px;
+}
 `;

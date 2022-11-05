@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { DHTDataGrid } from "./DHTDataGrid";
-import { LSDataGrid } from "./LSDataGrid";
+import { DHTDataGrid, LSDataGrid } from "./";
 import { types } from "../../tools";
 
 export const DataGrid: React.FC<types.DataGridProps> = ({

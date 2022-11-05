@@ -2,8 +2,11 @@ import { CircularProgress, Grid, styled } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import { types } from "../../tools";
-import { AdvancedGridItem } from "./AdvancedGridItem";
+import { types } from "../../../tools";
+import { AdvancedGridItem } from "../AdvancedGridItem";
+
+const getResolved = (ip: string | null, port: number | null) =>
+  ip && port ? `${ip}:${port}` : "-";
 
 export const DHTDataGridItem: React.FC<types.DHTDataGridItemProps> = ({
   item,
@@ -11,14 +14,7 @@ export const DHTDataGridItem: React.FC<types.DHTDataGridItemProps> = ({
   isLoading,
 }) => {
   const { ip, idx, key, port, is_online } = item;
-  const StyledItem = styled(StyledContainer)`
-    margin-top: 5px;
-    box-sizing: border-box;
-    padding-bottom: 10px;
-    text-align: start;
-  `;
-  const getResolved = (ip: string | null, port: number | null) =>
-    ip && port ? `${ip}:${port}` : "-";
+
   return (
     <StyledItem container>
       <Grid item xs={12} md={8}>
@@ -60,7 +56,7 @@ export const DHTDataGridItem: React.FC<types.DHTDataGridItemProps> = ({
             "-"
           )
         }
-        isLink={!!resolved && !!resolved.ip && !!resolved.port}
+        isLink={!!resolved && !!resolved.ip && !!resolved.port && !isLoading}
       />
     </StyledItem>
   );
@@ -69,4 +65,10 @@ export const DHTDataGridItem: React.FC<types.DHTDataGridItemProps> = ({
 const StyledContainer = styled(Grid)`
   margin: 20px auto 0;
   padding: 5px;
+`;
+const StyledItem = styled(StyledContainer)`
+  margin-top: 5px;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  text-align: start;
 `;
