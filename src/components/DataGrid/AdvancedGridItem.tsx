@@ -1,29 +1,11 @@
-import { Grid, GridProps, styled, useTheme, Fade } from "@mui/material";
+import { Grid, styled, useTheme, Fade } from "@mui/material";
 import React from "react";
 import { useSnackbar } from "notistack";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-const unsafeCopy = (textToCopy: string) => {
-  let textArea = document.createElement("textarea");
-  textArea.value = textToCopy;
-  // make the textarea out of viewport
-  textArea.style.position = "fixed";
-  textArea.style.left = "-999999px";
-  textArea.style.top = "-999999px";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-  return new Promise<void>((res, rej) => {
-    // here the magic happens
-    document.execCommand("copy") ? res() : rej();
-    textArea.remove();
-  });
-};
-export type AdvancedGridItemProps = GridProps & {
-  label?: string;
-  content: any;
-  isLink?: boolean;
-};
-export const AdvancedGridItem: React.FC<AdvancedGridItemProps> = ({
+import { copy } from "../../tools";
+import { types } from "../../tools";
+
+export const AdvancedGridItem: React.FC<types.AdvancedGridItemProps> = ({
   label,
   content,
   isLink,
@@ -33,30 +15,10 @@ export const AdvancedGridItem: React.FC<AdvancedGridItemProps> = ({
 
   const theme = useTheme();
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (window.isSecureContext && navigator.clipboard)
-      navigator.clipboard
-        .writeText(e.currentTarget.innerText)
-        .then(() => {
-          enqueueSnackbar("copied!", {
-            variant: "success",
-            TransitionComponent: Fade,
-          });
-        })
-        .catch((error) => {
-          console.log("error when copying");
-          console.error(error);
-          enqueueSnackbar("not copied!", {
-            variant: "error",
-            TransitionComponent: Fade,
-          });
-        });
-    else {
-      unsafeCopy(e.currentTarget.innerText);
-      enqueueSnackbar("copied!", {
-        variant: "success",
-        TransitionComponent: Fade,
-      });
-    }
+    copy.copyToClipboard(e.currentTarget.innerText, {
+      snackbar: enqueueSnackbar,
+      transitionComponent: Fade,
+    });
   };
   const StyledLink = styled("div")`
     cursor: pointer;
@@ -81,8 +43,8 @@ export const AdvancedGridItem: React.FC<AdvancedGridItemProps> = ({
     <Grid item {...restProps}>
       {label && <Label>{label}</Label>}
       {isLink ? (
-        <StyledLink>
-          <span onClick={handleClick}>{content}</span>
+        <StyledLink onClick={handleClick}>
+          <span>{content}</span>
           <ContentCopyOutlinedIcon fontSize="small" />
         </StyledLink>
       ) : (

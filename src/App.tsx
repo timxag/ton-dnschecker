@@ -1,11 +1,6 @@
 import React from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import {
-  ThemeModeContext,
-  LIGHT_MODE_THEME,
-  DARK_MODE_THEME,
-  getAppTheme,
-} from "./tools/theme";
+import { theme as appTheme } from "./tools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { styled } from "@mui/material";
 import { Sidebar } from "./components/Sidebar";
@@ -15,23 +10,32 @@ import { SnackbarProvider } from "notistack";
 const queryClient = new QueryClient();
 const App: React.FC = () => {
   const [mode, setMode] = React.useState<
-    typeof LIGHT_MODE_THEME | typeof DARK_MODE_THEME
-  >(LIGHT_MODE_THEME);
+    typeof appTheme.LIGHT_MODE_THEME | typeof appTheme.DARK_MODE_THEME
+  >(
+    (localStorage.getItem("theme") as "light" | "dark") ??
+      appTheme.LIGHT_MODE_THEME
+  );
   const themeMode = React.useMemo(
     () => ({
       toggleThemeMode: () => {
-        setMode((prevMode) =>
-          prevMode === LIGHT_MODE_THEME ? DARK_MODE_THEME : LIGHT_MODE_THEME
-        );
+        let newTheme: "light" | "dark";
+        setMode((prevMode) => {
+          newTheme =
+            prevMode === appTheme.LIGHT_MODE_THEME
+              ? appTheme.DARK_MODE_THEME
+              : appTheme.LIGHT_MODE_THEME;
+          return newTheme;
+        });
+        setTimeout(() => localStorage.setItem("theme", newTheme));
       },
     }),
     []
   );
 
-  const theme = React.useMemo(() => getAppTheme(mode), [mode]);
+  const theme = React.useMemo(() => appTheme.getAppTheme(mode), [mode]);
 
   return (
-    <ThemeModeContext.Provider value={themeMode}>
+    <appTheme.ThemeModeContext.Provider value={themeMode}>
       <SnackbarProvider maxSnack={1} preventDuplicate autoHideDuration={1500}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -45,7 +49,7 @@ const App: React.FC = () => {
           </Wrapper>
         </ThemeProvider>
       </SnackbarProvider>
-    </ThemeModeContext.Provider>
+    </appTheme.ThemeModeContext.Provider>
   );
 };
 const Wrapper = styled("div")`

@@ -1,14 +1,9 @@
 import { Grid, useTheme } from "@mui/material";
 import React from "react";
-import { DHTDataType, DHTResolvedType } from "../../tools/types";
+import { types } from "../../tools";
 import { DHTDataGridItem } from "./DHTDataGridItem";
 
-export type DHTDataGridProps = {
-  data: DHTDataType[];
-  resolved: DHTResolvedType[];
-  isLoading: boolean;
-};
-export const DHTDataGrid: React.FC<DHTDataGridProps> = ({
+export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({
   data,
   resolved,
   isLoading,

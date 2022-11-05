@@ -1,13 +1,13 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { DHTDataGrid, DHTDataGridProps } from "./DHTDataGrid";
-import { LSDataGrid, LSDataGridProps } from "./LSDataGrid";
+import { DHTDataGrid } from "./DHTDataGrid";
+import { LSDataGrid } from "./LSDataGrid";
+import { types } from "../../tools";
 
-export type DataGridProps = {
-  dhtData: DHTDataGridProps;
-  lsData: LSDataGridProps;
-};
-export const DataGrid: React.FC<DataGridProps> = ({ dhtData, lsData }) => {
+export const DataGrid: React.FC<types.DataGridProps> = ({
+  dhtData,
+  lsData,
+}) => {
   const gridSx = {
     "@media(max-width: 1199px)": {
       marginTop: "50px",

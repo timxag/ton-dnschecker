@@ -1,14 +1,9 @@
 import { Grid, useTheme } from "@mui/material";
 import React from "react";
-import { LSDataType, LSResolvedType } from "../../tools/types";
+import { types } from "../../tools";
 import { LSDataGridItem } from "./LSDataGridItem";
 
-export type LSDataGridProps = {
-  data: LSDataType[];
-  resolved: LSResolvedType[];
-  isLoading: boolean;
-};
-export const LSDataGrid: React.FC<LSDataGridProps> = ({
+export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
   data,
   resolved,
   isLoading,

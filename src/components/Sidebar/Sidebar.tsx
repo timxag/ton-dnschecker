@@ -1,12 +1,12 @@
 import React from "react";
 import { LightModeOutlined, DarkModeOutlined } from "@mui/icons-material";
-import { LIGHT_MODE_THEME, ThemeModeContext } from "../../tools/theme";
+import { theme as appTheme } from "../../tools";
 import { styled, Typography, useTheme, IconButton, Grid } from "@mui/material";
 import { ReactComponent as ReactLogo } from "./icon.svg";
 
 export const Sidebar: React.FC = () => {
   const theme = useTheme();
-  const { toggleThemeMode } = React.useContext(ThemeModeContext);
+  const { toggleThemeMode } = React.useContext(appTheme.ThemeModeContext);
   return (
     <Grid container>
       <Grid item xs>
@@ -23,7 +23,7 @@ export const Sidebar: React.FC = () => {
 
       <Grid item xs={1} alignContent="end" textAlign="end">
         <IconButton onClick={toggleThemeMode} size="small">
-          {theme.palette.mode === LIGHT_MODE_THEME ? (
+          {theme.palette.mode === appTheme.LIGHT_MODE_THEME ? (
             <DarkModeOutlined color="primary" />
           ) : (
             <LightModeOutlined color="primary" />

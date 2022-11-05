@@ -1,15 +1,11 @@
-import { CircularProgress, Grid, styled, useTheme } from "@mui/material";
+import { CircularProgress, Grid, styled } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import { LSDataType, LSResolvedType } from "../../tools/types";
+import { types } from "../../tools";
 import { AdvancedGridItem } from "./AdvancedGridItem";
-export type LSataGridItemProps = {
-  item: LSDataType;
-  resolved: LSResolvedType | null;
-  isLoading: boolean;
-};
-export const LSDataGridItem: React.FC<LSataGridItemProps> = ({
+
+export const LSDataGridItem: React.FC<types.LSataGridItemProps> = ({
   item,
   resolved,
   isLoading,

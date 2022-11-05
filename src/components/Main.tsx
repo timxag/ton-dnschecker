@@ -2,13 +2,8 @@ import { Box, CircularProgress, Grid, styled } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useMutation, useQuery } from "react-query";
-import { API_URL, fetchDHTData, fetchLSData } from "../tools/fetchData";
-import {
-  DHTDataType,
-  LSDataType,
-  DHTResolvedType,
-  LSResolvedType,
-} from "../tools/types";
+import { api } from "../tools";
+import { types } from "../tools";
 import { DataGrid } from "./DataGrid";
 import Search from "./Search";
 const isADNL = (value: string) => !!value.match("^[0-9a-fA-F]{64}$");
@@ -17,19 +12,23 @@ const Main: React.FC = () => {
     text-align: center;
   `;
   const [search, setSearch] = React.useState("");
-  const [resolvedDHT, setResolvedDHT] = React.useState<DHTResolvedType[]>([]);
-  const [resolvedLS, setResolvedLS] = React.useState<LSResolvedType[]>([]);
-  const { data: dhtData, status: dhtStatus } = useQuery<DHTDataType[]>(
+  const [resolvedDHT, setResolvedDHT] = React.useState<types.DHTResolvedType[]>(
+    []
+  );
+  const [resolvedLS, setResolvedLS] = React.useState<types.LSResolvedType[]>(
+    []
+  );
+  const { data: dhtData, status: dhtStatus } = useQuery<types.DHTDataType[]>(
     "dht",
-    fetchDHTData,
+    api.fetchDHTData,
     {
       retry: 0,
       refetchOnWindowFocus: false,
     }
   );
-  const { data: lsData, status: lsStatus } = useQuery<LSDataType[]>(
+  const { data: lsData, status: lsStatus } = useQuery<types.LSDataType[]>(
     "ls",
-    fetchLSData,
+    api.fetchLSData,
     {
       retry: 0,
       refetchOnWindowFocus: false,
@@ -37,12 +36,12 @@ const Main: React.FC = () => {
   );
   const { mutate: mutateDHT, isLoading: isLoadingDHT } = useMutation(
     (value: string) => {
-      return axios.get(`${API_URL}/api/dns/resolve?adnl=${value}`);
+      return axios.get(`${api.API_URL}/api/dns/resolve?adnl=${value}`);
     }
   );
   const { mutate: mutateLS, isLoading: isLoadingLS } = useMutation(
     (value: string) => {
-      return axios.get(`${API_URL}/api/dns/ls_resolve?domain=${value}`);
+      return axios.get(`${api.API_URL}/api/dns/ls_resolve?domain=${value}`);
     }
   );
   const handleClick = React.useCallback(
@@ -83,12 +82,12 @@ const Main: React.FC = () => {
         <DataGrid
           dhtData={{
             data: dhtData,
-            resolved: resolvedDHT as unknown as DHTResolvedType[],
+            resolved: resolvedDHT as unknown as types.DHTResolvedType[],
             isLoading: isLoadingDHT,
           }}
           lsData={{
             data: lsData,
-            resolved: resolvedLS as unknown as LSResolvedType[],
+            resolved: resolvedLS as unknown as types.LSResolvedType[],
             isLoading: isLoadingLS,
           }}
         />

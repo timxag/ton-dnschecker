@@ -1,12 +1,8 @@
 import { Button, Grid, TextField, styled } from "@mui/material";
 import React from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-
-export type SearchProps = {
-  value: string;
-  onSearch: (value: string) => void;
-};
-const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
+import { types } from "../tools";
+const Search: React.FC<types.SearchProps> = ({ onSearch, value }) => {
   const [state, setState] = React.useState(value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

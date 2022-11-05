@@ -2,14 +2,10 @@ import { CircularProgress, Grid, styled } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import { DHTDataType, DHTResolvedType } from "../../tools/types";
+import { types } from "../../tools";
 import { AdvancedGridItem } from "./AdvancedGridItem";
-export type DHTDataGridItemProps = {
-  item: DHTDataType;
-  resolved: DHTResolvedType | null;
-  isLoading: boolean;
-};
-export const DHTDataGridItem: React.FC<DHTDataGridItemProps> = ({
+
+export const DHTDataGridItem: React.FC<types.DHTDataGridItemProps> = ({
   item,
   resolved,
   isLoading,
