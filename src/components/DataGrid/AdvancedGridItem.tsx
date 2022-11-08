@@ -48,6 +48,7 @@ const Label = styled("p")`
 const StyledDiv = styled("div")`
 cursor: pointer;
 display: flex;
+justify-content: center;
 span {
   max-width: 95%;
   white-space: nowrap;

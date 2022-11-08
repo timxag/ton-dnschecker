@@ -11,6 +11,7 @@ const Main: React.FC = () => {
     text-align: center;
   `;
   const [search, setSearch] = React.useState("");
+  const [selectedTable, setSelectedTable] = React.useState<"DHT" | "LS">("DHT");
   const [resolvedDHT, setResolvedDHT] = React.useState<types.DHTResolvedType[]>(
     []
   );
@@ -43,13 +44,17 @@ const Main: React.FC = () => {
   const handleClick = React.useCallback(
     (value: string) => {
       window.history.replaceState({}, "", `?search=${value}`);
-      isADNL(value)
-        ? mutateDHT(value, {
-            onSuccess: (newData) => setResolvedDHT(newData),
-          })
-        : mutateLS(value, {
-            onSuccess: (newData) => setResolvedLS(newData),
-          });
+      if (isADNL(value)) {
+        mutateDHT(value, {
+          onSuccess: (newData) => setResolvedDHT(newData),
+        });
+        setSelectedTable("DHT");
+      } else {
+        mutateLS(value, {
+          onSuccess: (newData) => setResolvedLS(newData),
+        });
+        setSelectedTable("LS");
+      }
       setSearch(value);
     },
     [mutateDHT, mutateLS]
@@ -87,6 +92,8 @@ const Main: React.FC = () => {
             resolved: resolvedLS as unknown as types.LSResolvedType[],
             isLoading: isLoadingLS,
           }}
+          selectedTable={selectedTable}
+          setSelectedTable={(value: "DHT" | "LS") => setSelectedTable(value)}
         />
       )}
     </StyledContainer>

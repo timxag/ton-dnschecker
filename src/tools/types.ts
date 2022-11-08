@@ -1,12 +1,20 @@
 import { GridProps } from "@mui/material";
 
+export type DataType = {
+  idx: number;
+  ip: string;
+  ip_int: number;
+  port: number;
+  key: string;
+  is_online: boolean;
+};
 export type DHTDataType = {
   idx: number;
   ip: string;
   ip_int: number;
   port: number;
   key: string;
-  is_online: string;
+  is_online: boolean;
 };
 export type LSDataType = {
   idx: number;
@@ -14,7 +22,7 @@ export type LSDataType = {
   ip_int: number;
   port: number;
   key: string;
-  is_online: string;
+  is_online: boolean;
 };
 
 export type SearchProps = {
@@ -25,6 +33,8 @@ export type SearchProps = {
 export type DataGridProps = {
   dhtData: DHTDataGridProps;
   lsData: LSDataGridProps;
+  selectedTable: "DHT" | "LS";
+  setSelectedTable: (value: "DHT" | "LS") => void;
 };
 
 export type DHTResolvedType = {
@@ -40,6 +50,11 @@ export type DHTDataGridItemProps = {
   item: DHTDataType;
   resolved: DHTResolvedType | null;
   isLoading: boolean;
+};
+export type DataGridItemProps = GridProps & {
+  data: any;
+  needMeta: boolean;
+  isOnline?: boolean;
 };
 
 export type LSResolvedType = {

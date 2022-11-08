@@ -1,4 +1,9 @@
-import { Grid, Typography } from "@mui/material";
+import {
+  Grid,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { DHTDataGrid, LSDataGrid } from "./";
 import { types } from "../../tools";
@@ -6,25 +11,36 @@ import { types } from "../../tools";
 export const DataGrid: React.FC<types.DataGridProps> = ({
   dhtData,
   lsData,
+  selectedTable,
+  setSelectedTable,
 }) => {
-  const gridSx = {
-    "@media(max-width: 1199px)": {
-      marginTop: "50px",
-    },
-  };
   return (
     <Grid container columnSpacing="20px">
-      <Grid item xs={12} lg={6}>
-        <Typography variant="h6" fontWeight="bold">
-          DHT
-        </Typography>
-        <DHTDataGrid {...dhtData} />
-      </Grid>
-      <Grid item sx={gridSx} xs={12} lg={6}>
-        <Typography variant="h6" fontWeight="bold">
-          Lite servers
-        </Typography>
-        <LSDataGrid {...lsData} />
+      <Grid item xs={12} lg={12}>
+        <ToggleButtonGroup
+          color="secondary"
+          value={selectedTable}
+          exclusive
+          onChange={(event: React.MouseEvent<HTMLElement>, value: string) =>
+            setSelectedTable(value as "DHT" | "LS")
+          }
+        >
+          <ToggleButton value="DHT">
+            <Typography variant="h6" fontWeight="bold">
+              DHT
+            </Typography>
+          </ToggleButton>
+          <ToggleButton value="LS">
+            <Typography variant="h6" fontWeight="bold">
+              LS
+            </Typography>
+          </ToggleButton>
+        </ToggleButtonGroup>
+        {selectedTable === "DHT" ? (
+          <DHTDataGrid {...dhtData} />
+        ) : (
+          <LSDataGrid {...lsData} />
+        )}
       </Grid>
     </Grid>
   );
