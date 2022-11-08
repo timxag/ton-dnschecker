@@ -1,4 +1,4 @@
-import { Grid, useTheme, CircularProgress } from "@mui/material";
+import { Grid, useTheme, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 import { types } from "../../../tools";
 import { DataGridItem } from "../DataGridItem";
@@ -17,7 +17,6 @@ export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({
       borderBottom: `1px solid ${theme.palette.primary.main}`,
     },
   };
-  data.forEach((el) => console.log(el));
   return (
     <Grid container>
       {data.map((el, index) => (
@@ -33,6 +32,45 @@ export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({
             isOnline={el.is_online}
             data={[
               {
+                xs: 2,
+                md: true,
+                label: "Idx",
+                content: (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    {el.is_online ? (
+                      <Done
+                        style={{ fill: "green" }}
+                        fontSize="medium"
+                        sx={{ position: "absolute", left: 0 }}
+                      />
+                    ) : (
+                      <Close
+                        style={{ fill: "red" }}
+                        fontSize="medium"
+                        sx={{ position: "absolute", left: 0 }}
+                      />
+                    )}
+
+                    <Typography
+                      variant="body1"
+                      sx={{ marginLeft: "3px" }}
+                      fontWeight="bold"
+                    >
+                      {el.idx}
+                    </Typography>
+                  </div>
+                ),
+                textAlign: "center",
+              },
+              {
+                xs: 10,
+                md: 3,
+                label: "IP:port",
+                content: `${el.ip}:${el.port}`,
+                isLink: true,
+                textAlign: "center",
+              },
+              {
                 xs: 12,
                 md: 5,
                 label: "Key",
@@ -42,34 +80,7 @@ export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({
               },
               {
                 xs: 10,
-                md: true,
-                label: "IP:port",
-                content: `${el.ip}:${el.port}`,
-                isLink: true,
-                textAlign: "center",
-              },
-              {
-                xs: 2,
-                md: 1,
-                label: "Status",
-                content: el.is_online ? (
-                  <Done style={{ fill: "green" }} fontSize="medium" />
-                ) : (
-                  <Close style={{ fill: "red" }} fontSize="medium" />
-                ),
-                textAlign: "center",
-              },
-              {
-                xs: 2,
-                md: 1,
-                label: "Index",
-                content: el.idx,
-                textAlign: "center",
-                order: { xs: 4, md: 3 },
-              },
-              {
-                xs: 10,
-                md: true,
+                md: 3,
                 order: { xs: 3, md: 4 },
                 label: "Resolve DHT",
                 textAlign: "center",

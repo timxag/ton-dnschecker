@@ -35,6 +35,7 @@ export type DataGridProps = {
   lsData: LSDataGridProps;
   selectedTable: "DHT" | "LS";
   setSelectedTable: (value: "DHT" | "LS") => void;
+  disabled: boolean;
 };
 
 export type DHTResolvedType = {

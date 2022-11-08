@@ -15,19 +15,22 @@ export const DataGridItem: React.FC<types.DataGridItemProps> = ({
       {needMeta && isDesktop && (
         <Grid item xs={12} md={12}>
           <Grid container position={"relative"}>
-            {data.map((el: any, index: number) => (
-              <Grid
-                item
-                xs={el.xs}
-                md={el.md ?? undefined}
-                textAlign="center"
-                key={index}
-              >
-                <Typography variant="h6" fontWeight="bold">
-                  {el.label}
-                </Typography>
-              </Grid>
-            ))}
+            {data.map(
+              (el: any, index: number) =>
+                !el.disablemeta && (
+                  <Grid
+                    item
+                    xs={el.xs}
+                    md={el.md ?? undefined}
+                    textAlign="center"
+                    key={index}
+                  >
+                    <Typography variant="h6" fontWeight="bold">
+                      {el.label}
+                    </Typography>
+                  </Grid>
+                )
+            )}
           </Grid>
         </Grid>
       )}

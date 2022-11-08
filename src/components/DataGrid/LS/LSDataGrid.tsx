@@ -1,4 +1,4 @@
-import { Grid, useTheme, CircularProgress } from "@mui/material";
+import { Grid, useTheme, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 import { types } from "../../../tools";
 import { DataGridItem } from "../DataGridItem";
@@ -22,7 +22,6 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
       {data.map((el, index) => (
         <Grid
           item
-          className="asddd"
           xs={12}
           key={el.idx + el.ip}
           sx={{ ...gridSx, opacity: el.is_online ? 1 : 0.7 }}
@@ -32,15 +31,38 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
             isOnline={el.is_online}
             data={[
               {
-                xs: 12,
-                md: 3,
-                label: "Key",
-                content: el.key,
-                isLink: true,
+                xs: 2,
+                md: 1,
+                label: "Idx",
+                content: (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    {el.is_online ? (
+                      <Done
+                        style={{ fill: "green" }}
+                        fontSize="medium"
+                        sx={{ position: "absolute", left: 0 }}
+                      />
+                    ) : (
+                      <Close
+                        style={{ fill: "red" }}
+                        fontSize="medium"
+                        sx={{ position: "absolute", left: 0 }}
+                      />
+                    )}
+
+                    <Typography
+                      variant="body1"
+                      sx={{ marginLeft: "3px" }}
+                      fontWeight="bold"
+                    >
+                      {el.idx}
+                    </Typography>
+                  </div>
+                ),
                 textAlign: "center",
               },
               {
-                xs: 10,
+                xs: true,
                 md: 2,
                 label: "IP:port",
                 content: `${el.ip}:${el.port}`,
@@ -48,25 +70,16 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
                 textAlign: "center",
               },
               {
-                xs: 1,
-                label: "Status",
-                content: el.is_online ? (
-                  <Done style={{ fill: "green" }} fontSize="medium" />
-                ) : (
-                  <Close style={{ fill: "red" }} fontSize="medium" />
-                ),
+                xs: 12,
+                md: 2,
+                label: "Key",
+                content: el.key,
+                isLink: true,
                 textAlign: "center",
-              },
-              {
-                xs: 1,
-                label: "Index",
-                content: el.idx,
-                textAlign: "center",
-                order: { xs: 4, md: 3 },
               },
               {
                 xs: 12,
-                md: 5,
+                md: 7,
                 order: { xs: 3, md: 4 },
                 label: "ADNL",
                 textAlign: "center",

@@ -13,6 +13,7 @@ export const DataGrid: React.FC<types.DataGridProps> = ({
   lsData,
   selectedTable,
   setSelectedTable,
+  disabled,
 }) => {
   return (
     <Grid container columnSpacing="20px">
@@ -25,14 +26,20 @@ export const DataGrid: React.FC<types.DataGridProps> = ({
             setSelectedTable(value as "DHT" | "LS")
           }
         >
-          <ToggleButton value="DHT">
-            <Typography variant="h6" fontWeight="bold">
-              DHT
-            </Typography>
-          </ToggleButton>
-          <ToggleButton value="LS">
+          <ToggleButton
+            value="LS"
+            disabled={disabled && selectedTable === "DHT"}
+          >
             <Typography variant="h6" fontWeight="bold">
               LS
+            </Typography>
+          </ToggleButton>
+          <ToggleButton
+            value="DHT"
+            disabled={disabled && selectedTable === "LS"}
+          >
+            <Typography variant="h6" fontWeight="bold">
+              DHT
             </Typography>
           </ToggleButton>
         </ToggleButtonGroup>

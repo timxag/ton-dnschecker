@@ -40,24 +40,26 @@ const Main: React.FC = () => {
   const { mutate: mutateLS, isLoading: isLoadingLS } = useMutation(
     api.fetchLSResolved
   );
-
-  const handleClick = React.useCallback(
-    (value: string) => {
-      window.history.replaceState({}, "", `?search=${value}`);
-      if (isADNL(value)) {
-        mutateDHT(value, {
-          onSuccess: (newData) => setResolvedDHT(newData),
-        });
-        setSelectedTable("DHT");
-      } else {
-        mutateLS(value, {
-          onSuccess: (newData) => setResolvedLS(newData),
-        });
-        setSelectedTable("LS");
+  // TODO: fix render
+  const handleClick = React.useMemo(
+    () => (value: string) => {
+      if (value !== search) {
+        if (isADNL(value)) {
+          mutateDHT(value, {
+            onSuccess: (newData) => setResolvedDHT(newData),
+          });
+          setSelectedTable("DHT");
+        } else {
+          mutateLS(value, {
+            onSuccess: (newData) => setResolvedLS(newData),
+          });
+          setSelectedTable("LS");
+        }
+        setSearch(value);
+        window.history.replaceState({}, "", `?search=${value}`);
       }
-      setSearch(value);
     },
-    [mutateDHT, mutateLS]
+    []
   );
 
   React.useEffect(() => {
@@ -94,6 +96,7 @@ const Main: React.FC = () => {
           }}
           selectedTable={selectedTable}
           setSelectedTable={(value: "DHT" | "LS") => setSelectedTable(value)}
+          disabled={!!search.length}
         />
       )}
     </StyledContainer>

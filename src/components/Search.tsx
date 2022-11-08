@@ -24,6 +24,7 @@ const Search: React.FC<types.SearchProps> = ({ onSearch, value }) => {
             label="Domain or ADNL address in hex form"
             color="secondary"
             size="small"
+            onBlur={() => onSearch(state)}
             fullWidth
           />
         </Grid>
