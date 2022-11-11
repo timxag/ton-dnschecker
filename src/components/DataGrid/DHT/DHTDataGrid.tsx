@@ -79,7 +79,7 @@ export const DHTDataGrid: React.FC<types.DHTDataGridProps> = ({
                 textAlign: "center",
               },
               {
-                xs: 10,
+                xs: 12,
                 md: 3,
                 order: { xs: 3, md: 4 },
                 label: "Resolve DHT",

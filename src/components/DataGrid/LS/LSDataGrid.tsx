@@ -17,6 +17,7 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
       borderBottom: `1px solid ${theme.palette.primary.main}`,
     },
   };
+  const hasValues = resolved.some((e) => e && e.adnl !== null);
   return (
     <Grid container>
       {data.map((el, index) => (
@@ -32,7 +33,7 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
             data={[
               {
                 xs: 2,
-                md: 1,
+                md: true,
                 label: "Idx",
                 content: (
                   <div style={{ display: "flex", justifyContent: "center" }}>
@@ -62,8 +63,8 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
                 textAlign: "center",
               },
               {
-                xs: true,
-                md: 2,
+                xs: 10,
+                md: hasValues ? 2 : 3,
                 label: "IP:port",
                 content: `${el.ip}:${el.port}`,
                 isLink: true,
@@ -71,7 +72,7 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
               },
               {
                 xs: 12,
-                md: 2,
+                md: hasValues ? 2 : 5,
                 label: "Key",
                 content: el.key,
                 isLink: true,
@@ -79,7 +80,7 @@ export const LSDataGrid: React.FC<types.LSDataGridProps> = ({
               },
               {
                 xs: 12,
-                md: 7,
+                md: hasValues ? 7 : 3,
                 order: { xs: 3, md: 4 },
                 label: "ADNL",
                 textAlign: "center",

@@ -40,10 +40,10 @@ const Main: React.FC = () => {
   const { mutate: mutateLS, isLoading: isLoadingLS } = useMutation(
     api.fetchLSResolved
   );
-  // TODO: fix render
+
   const handleClick = React.useMemo(
     () => (value: string) => {
-      if (value !== search) {
+      if (!!value) {
         if (isADNL(value)) {
           mutateDHT(value, {
             onSuccess: (newData) => setResolvedDHT(newData),
@@ -55,11 +55,11 @@ const Main: React.FC = () => {
           });
           setSelectedTable("LS");
         }
-        setSearch(value);
         window.history.replaceState({}, "", `?search=${value}`);
       }
+      setSearch(value);
     },
-    []
+    [mutateDHT, mutateLS]
   );
 
   React.useEffect(() => {

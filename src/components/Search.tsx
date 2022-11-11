@@ -8,37 +8,40 @@ const Search: React.FC<types.SearchProps> = ({ onSearch, value }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState(event.target.value);
   };
+
+  const onSubmit = () => {
+    if (state !== value) onSearch(state);
+  };
+
   return (
-    <StyledForm onSubmit={() => onSearch(state)}>
-      <StyledContainer
-        container
-        textAlign="center"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid item xs={12} md={6}>
-          <TextField
-            variant="outlined"
-            value={state}
-            onChange={handleChange}
-            label="Domain or ADNL address in hex form"
-            color="secondary"
-            size="small"
-            onBlur={() => onSearch(state)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} md={1} alignContent="end" textAlign="end">
-          <StyledButton
-            startIcon={<SearchOutlinedIcon />}
-            disabled={!state}
-            type="submit"
-          >
-            check
-          </StyledButton>
-        </Grid>
-      </StyledContainer>
-    </StyledForm>
+    <StyledContainer
+      container
+      textAlign="center"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Grid item xs={12} md={6}>
+        <TextField
+          variant="outlined"
+          value={state}
+          onChange={handleChange}
+          label="Domain or ADNL address in hex form"
+          color="secondary"
+          size="small"
+          onBlur={onSubmit}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12} md={1} alignContent="end" textAlign="end">
+        <StyledButton
+          startIcon={<SearchOutlinedIcon />}
+          disabled={!state}
+          onClick={onSubmit}
+        >
+          check
+        </StyledButton>
+      </Grid>
+    </StyledContainer>
   );
 };
 const StyledContainer = styled(Grid)`
@@ -48,8 +51,5 @@ const StyledContainer = styled(Grid)`
 const StyledButton = styled(Button)`
   margin: auto 0;
   height: 100%;
-`;
-const StyledForm = styled("form")`
-  width: 100%;
 `;
 export default Search;

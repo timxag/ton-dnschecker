@@ -9,12 +9,14 @@ import { SnackbarProvider } from "notistack";
 
 const queryClient = new QueryClient();
 const App: React.FC = () => {
+  const systemThemeMode =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? appTheme.DARK_MODE_THEME
+      : appTheme.LIGHT_MODE_THEME;
   const [mode, setMode] = React.useState<
     typeof appTheme.LIGHT_MODE_THEME | typeof appTheme.DARK_MODE_THEME
-  >(
-    (localStorage.getItem("theme") as "light" | "dark") ??
-      appTheme.LIGHT_MODE_THEME
-  );
+  >((localStorage.getItem("theme") as "light" | "dark") ?? systemThemeMode);
   const themeMode = React.useMemo(
     () => ({
       toggleThemeMode: () => {
