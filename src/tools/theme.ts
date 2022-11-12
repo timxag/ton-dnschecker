@@ -13,9 +13,7 @@ export const LIGHT_MODE_THEME = "light";
 const colors = {
   white: "#fff",
   blue_dark: "#2596be",
-  // blue_dark: "#076c9f",
   blue_light: "#2596be",
-  // blue_light: "#00a1f1",
   dark: "#232328",
 };
 export const getAppTheme = (
