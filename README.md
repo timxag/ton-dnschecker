@@ -2,14 +2,15 @@
 
 ## Install
 
-### Dev server(node js on your machine required): 
+### Dev server(node js on your machine required):
 
- `yarn install && yarn start`
+`yarn install && yarn start`
 
 [http://localhost:3000](http://localhost:3000) - stand.
+Set API_URL in `src/tools/fetchData.ts` to valid api-dns backend to run frontend dev-server.
 
+### Production build(node js on your machine required):
 
-### Production build(node js on your machine required): 
 `yarn build`
 
 Builds the app for production to the `build` folder.\
